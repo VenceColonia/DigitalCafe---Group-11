@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        .product-info {
+            display: inline-block;
+            text-align: left;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+ <h1>Product details</h1>
+<a href="/">Back to products</a>
+{% if product %}
+    <p>Product name: {{ product.name }}</p>
+    <p>Product price: {{ product.price }}</p>
+{% endif %}
+
+<h2>Add to cart</h2>
+<form method="POST" action="#">
+    {% csrf_token %}
+    <input type="hidden" name="product_id" value="{{ product.id }}">
+    <label for="quantity">Quantity</label>
+    <input type="number" name="quantity" value="1">
+    <input type="submit" value="Add to cart">
+</form>
+</body>
+</html>

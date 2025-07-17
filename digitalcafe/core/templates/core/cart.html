@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Cart</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 60%;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f3f3f3;
+        }
+        h1, p {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Your Shopping Cart</h1>
+
+    {% if cart_items %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price (each)</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>₱{{ item.product.price }}</td>
+                    <td>₱{{ item.product.price|multiply:item.quantity }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p><strong>Total:</strong> ₱{{ total }}</p>
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #999;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f3f3f3;
+        }
+        p {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <p>Hi, {{ user.username }}! <a href="{% url 'logout_view' %}">Logout</a></p>
+    <h1 style="text-align:center;">Available Products</h1>
+   {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if messages.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+    {% if product_data %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Price (PHP)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product_record in product_data %}
+                <tr>
+                    <td><a href="{% url 'product_detail' product_record.id %}">{{ product_record.name }}</a></td>
+                    <td>{{ product_record.price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No products available.</p>
+    {% endif %}
+<a href="/checkout">Go to check out</a>
+<a href="/transactions/">View your transaction history</a>
+</body>
+</html>

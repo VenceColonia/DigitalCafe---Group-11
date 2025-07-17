@@ -1,0 +1,15 @@
+<h1>Transaction History</h1>
+<a href="/">Back to products</a>
+
+{% if transactions %}
+    {% for transaction in transactions %}
+        <h3>Transaction on {{ transaction.created_at }}</h3>
+        <ul>
+        {% for item in transaction.lineitem_set.all %}
+            <li>{{ item.quantity }} x {{ item.product.name }}</li>
+        {% endfor %}
+        </ul>
+    {% endfor %}
+{% else %}
+    <p>No transactions found.</p>
+{% endif %}
